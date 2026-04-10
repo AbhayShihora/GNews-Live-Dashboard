@@ -9,3 +9,41 @@ A modern and responsive web application that fetches real-time news using the GN
 - 🔍 Search functionality
 - 📱 Fully responsive design
 - ⚡ Fast and dynamic UI
+
+## 🛠️ Tech Stack
+
+- HTML
+- CSS
+- JavaScript
+- GNews API
+
+## 📸 Screenshots
+
+
+
+## 🌐 API Used
+
+- https://gnews.io/
+
+## 📦 Installation
+
+1. Clone the repository  
+2. Add your GNews API key in the JavaScript file  
+3. Open `index.html` in your browser  
+
+## 🚀 Deployment
+
+You can deploy this project using:
+- Netlify
+- Vercel
+- GitHub Pages
+
+## 📌 Future Improvements
+
+- Dark mode 🌙  
+- Bookmark articles ⭐  
+- AI-based news summarization 🤖  
+
+## 👨‍💻 Author
+
+Abhay Shihora
