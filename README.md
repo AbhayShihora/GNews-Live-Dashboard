@@ -19,6 +19,7 @@ A modern and responsive web application that fetches real-time news using the GN
 
 ## 📸 Screenshots
 
+<img width="1536" height="1024" alt="News App" src="https://github.com/user-attachments/assets/6dd46100-8377-4114-986b-ec3cd8f82cb6" />
 
 
 ## 🌐 API Used
