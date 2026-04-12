@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InSight News | Engineered by Abhay Shihora</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --accent: #38bdf8;
+            --bg-dark: #020617;
+            --glass: rgba(30, 41, 59, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        body {
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.1) 0%, transparent 25%);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        /* --- NAVIGATION / BRANDING --- */
+        nav {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -1px; color: var(--accent); }
+        .author-tag { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1.1;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p { color: var(--text-muted); font-size: 1.1rem; margin-top: 20px; }
+
+        /* --- SEARCH BOX --- */
+        .search-container {
+            display: flex;
+            background: var(--glass);
+            padding: 8px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            max-width: 500px;
+            margin: 40px auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .search-container input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 0 25px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-container button {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .search-container button:hover { transform: scale(1.05); background: #fff; }
+
+        /* --- NEWS GRID --- */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+            padding: 40px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .news-card {
+            background: var(--glass);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .news-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            background: rgba(30, 41, 59, 0.9);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+
+        .card-content h3 { font-size: 1.25rem; margin: 0 0 15px; line-height: 1.4; font-weight: 700; }
+
+        .card-content p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; flex-grow: 1; }
+
+        .read-more {
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 1px solid var(--border);
+            margin-top: 100px;
+        }
+
+        .footer-text { color: var(--text-muted); font-size: 0.9rem; }
+        .footer-text strong { color: #fff; border-bottom: 2px solid var(--accent); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .news-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">InSight.</div>
+        <div class="author-tag">Project by Abhay Shihora</div>
+    </nav>
+
+    <div class="hero">
+        <h1>Unfolding the World's Stories</h1>
+        <p>A high-performance news dashboard delivering accurate headlines directly from verified global sources.</p>
+        
+        <div class="search-container">
+            <input type="text" id="userInput" placeholder="Search topics (AI, Tech, Sports)...">
+            <button onclick="fetchNews()">Explore</button>
+        </div>
+    </div>
+
+    <main class="news-grid" id="newsGrid"></main>
+
+    <footer>
+        <p class="footer-text">Developed with precision by <strong>Abhay Shihora</strong> &copy; 2026</p>
+    </footer>
+
+    <script>
+        const API_KEY = "17a87fd8a7958384bb1c246436f26040";
+        const newsGrid = document.getElementById("newsGrid");
+
+        async function fetchNews() {
+            const query = document.getElementById("userInput").value.trim() || "Top Headlines";
+            newsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 100px;">Analyzing global servers...</div>`;
+
+            // Using your GNews API Key
+            const url = `https://gnews.io/api/v4/search?q=${encodeURIComponent(query)}&lang=en&max=12&apikey=${API_KEY}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    newsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 100px; color: #ef4444;">API limit reached or key inactive. Try again in a moment.</div>`;
+                    return;
+                }
+
+                renderNews(data.articles);
+            } catch (error) {
+                newsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 100px;">⚠️ Connection interrupted. Check your internet.</div>`;
+            }
+        }
+
+        function renderNews(articles) {
+            newsGrid.innerHTML = "";
+            if (articles.length === 0) {
+                newsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 100px;">No results found for that search.</div>`;
+                return;
+            }
+
+            articles.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "news-card";
+                card.innerHTML = `
+                    <img src="${item.image || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1000'}" alt="News">
+                    <div class="card-body">
+                        <div class="card-content">
+                            <h3>${item.title}</h3>
+                            <p>${item.description ? item.description.slice(0, 150) + '...' : "Read the full report on the source website."}</p>
+                            <a href="${item.url}" target="_blank" class="read-more">FULL REPORT ➔</a>
+                        </div>
+                    </div>
+                `;
+                newsGrid.appendChild(card);
+            });
+        }
+
+        document.getElementById("userInput").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") fetchNews();
+        });
+
+        window.onload = fetchNews;
+    </script>
+</body>
+</html>
